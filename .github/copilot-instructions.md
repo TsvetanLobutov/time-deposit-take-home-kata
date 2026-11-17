@@ -1,0 +1,6 @@
+- Preserve the public TimeDeposit API and updateBalance signature and behavior.
+- Keep exactly two business endpoints: GET /api/time-deposits and PUT /api/time-deposits/balances.
+- Extend interest calculations through InterestPolicy implementations.
+- Preserve existing annual rates prorated monthly and eligibility boundaries.
+- Keep API, application, and persistence responsibilities separated.
+- Document assumptions and run mvn test after behavior changes.
