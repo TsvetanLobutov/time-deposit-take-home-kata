@@ -29,7 +29,7 @@ public class TimeDepositController {
     @PutMapping("/balances")
     public ResponseEntity<Void> updateBalances() {
         service.updateBalances();
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.accepted().build();
     }
 
     private static TimeDepositResponse toResponse(TimeDepositData deposit) {
