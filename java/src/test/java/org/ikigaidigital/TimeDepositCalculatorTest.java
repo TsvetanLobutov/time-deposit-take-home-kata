@@ -8,6 +8,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TimeDepositCalculatorTest {
     @Test
+    void updateBalanceDoesNotApplyInterestBeforeThirtyDays() {
+        TimeDepositCalculator calc = new TimeDepositCalculator();
+        List<TimeDeposit> plans = List.of(
+            new TimeDeposit(1, "basic", 12000.00, 29),
+            new TimeDeposit(2, "student", 12000.00, 29),
+            new TimeDeposit(3, "premium", 12000.00, 29)
+        );
+
+        calc.updateBalance(plans);
+
+        assertThat(plans).extracting(TimeDeposit::getBalance)
+            .containsExactly(12000.00, 12000.00, 12000.00);
+    }
+
+    @Test
     void updateBalanceAppliesExistingPlanRules() {
         TimeDepositCalculator calc = new TimeDepositCalculator();
         List<TimeDeposit> plans = List.of(
