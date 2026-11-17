@@ -19,14 +19,18 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/TimeDeposit"
+        "500":
+          description: An unexpected server error occurred.
   /api/time-deposits/balances:
     put:
       operationId: updateTimeDepositBalances
       summary: Apply monthly interest to all time deposits
       description: Applies the existing calculator rules once to every stored deposit.
       responses:
-        "204":
-          description: All stored balances were updated.
+        "202":
+          description: The balance update was accepted and applied.
+        "500":
+          description: An unexpected server error occurred.
 components:
   schemas:
     TimeDeposit:
