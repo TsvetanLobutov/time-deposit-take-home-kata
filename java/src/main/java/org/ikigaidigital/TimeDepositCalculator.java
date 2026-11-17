@@ -5,21 +5,28 @@ import java.math.RoundingMode;
 import java.util.List;
 
 public class TimeDepositCalculator {
+    private final List<InterestPolicy> interestPolicies;
+
+    public TimeDepositCalculator() {
+        this(List.of(
+            new BasicInterestPolicy(),
+            new StudentInterestPolicy(),
+            new PremiumInterestPolicy()
+        ));
+    }
+
+    public TimeDepositCalculator(List<InterestPolicy> interestPolicies) {
+        this.interestPolicies = List.copyOf(interestPolicies);
+    }
+
     public void updateBalance(List<TimeDeposit> xs) {
         for (int i = 0; i < xs.size(); i++) {
             double interest = 0;
 
-            if (xs.get(i).getDays() > 30) {
-                if (xs.get(i).getPlanType().equals("student")) {
-                    if (xs.get(i).getDays() < 366) {
-                        interest += xs.get(i).getBalance() * 0.03 / 12;
-                    }
-                } else if (xs.get(i).getPlanType().equals("premium")) {
-                    if (xs.get(i).getDays() > 45) {
-                        interest += xs.get(i).getBalance() * 0.05 / 12;
-                    }
-                } else if (xs.get(i).getPlanType().equals("basic")) {
-                    interest += xs.get(i).getBalance() * 0.01 / 12;
+            for (InterestPolicy policy : interestPolicies) {
+                if (policy.appliesTo(xs.get(i))) {
+                    interest = policy.monthlyInterest(xs.get(i));
+                    break;
                 }
             }
 
