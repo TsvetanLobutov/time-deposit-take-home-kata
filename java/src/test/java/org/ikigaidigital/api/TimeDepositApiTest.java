@@ -76,7 +76,7 @@ class TimeDepositApiTest {
         );
 
         mockMvc.perform(put("/api/time-deposits/balances"))
-            .andExpect(status().isNoContent());
+            .andExpect(status().isAccepted());
 
         assertThat(timeDepositRepository.findById(basic.getId()).orElseThrow().getBalance())
             .isEqualByComparingTo("12010.00");
@@ -89,7 +89,10 @@ class TimeDepositApiTest {
         mockMvc.perform(get("/openapi.yaml"))
             .andExpect(status().isOk())
             .andExpect(content().string(org.hamcrest.Matchers.containsString("/api/time-deposits/balances:")))
-            .andExpect(content().string(org.hamcrest.Matchers.containsString("/api/time-deposits:")));
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("/api/time-deposits:")))
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("\"202\":")))
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("\"500\":")))
+            .andExpect(content().string(org.hamcrest.Matchers.not(org.hamcrest.Matchers.containsString("\"204\":"))));
     }
 
     @Test
