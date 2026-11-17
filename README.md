@@ -34,7 +34,7 @@ mvn -f java/pom.xml spring-boot:run
 
 ## API
 
-Open [Swagger UI](http://localhost:8080/swagger-ui.html) after starting the application. To invoke either operation, expand it, select **Try it out**, then **Execute**. The GET operation takes no parameters and returns the deposits and their withdrawals. The PUT operation takes no request body and applies one monthly balance update to every stored deposit; a successful request returns HTTP `204 No Content`.
+Open [Swagger UI](http://localhost:8080/swagger-ui.html) after starting the application. To invoke either operation, expand it, select **Try it out**, then **Execute**. The GET operation takes no parameters and returns the deposits and their withdrawals. The PUT operation takes no request body and applies one monthly balance update to every stored deposit; a successful request returns HTTP `202 Accepted`.
 
 The OpenAPI contract is available at [http://localhost:8080/openapi.yaml](http://localhost:8080/openapi.yaml). The API intentionally exposes exactly two operations:
 
